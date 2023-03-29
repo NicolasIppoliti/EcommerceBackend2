@@ -14,4 +14,12 @@ router.get('/', async (req, res) => {
     })
 });
 
+router.get('/realtimeproducts', async (req, res) => {
+    let allProducts = await product.getProducts();
+    res.render('realtimeproducts', {
+        title: 'Desafio Handlebars',
+        products: allProducts
+    })
+});
+
 export default router;

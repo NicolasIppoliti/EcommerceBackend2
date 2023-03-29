@@ -1,4 +1,4 @@
-<h1>Lista de productos</h1>
+<h1>Lista de productos con websocket</h1>
 {{#each products}}
 <h2>{{this.title}}</h2>
 <p>{{this.description}}</p>
@@ -8,3 +8,6 @@
 {{/if}}
 <p>{{this.stock}}</p>
 {{/each}}
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>
