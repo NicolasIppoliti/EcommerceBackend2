@@ -1,4 +1,4 @@
-import {promises as fs} from 'fs';
+import { promises as fs } from 'fs';
 import { customAlphabet } from 'nanoid';
 const nanoid = customAlphabet('1234567890', 5);
 
@@ -24,8 +24,13 @@ class ProductManager {
         return 'Product added successfully';
     }
 
-    getProducts = async () => {
-        return await this.readProducts();
+    async getProducts() {
+        try {
+            return await this.readProducts();
+        } catch (error) {
+            console.log('Error loading products:', error);
+            return [];
+        }
     }
 
     getProductById = async (id) => {

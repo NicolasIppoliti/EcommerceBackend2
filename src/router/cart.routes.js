@@ -1,16 +1,12 @@
-//Import router from express
+//Importando Router de express y el controlador CartManager
 import { Router } from "express";
-
-//Importing the CartManager class
 import CartManager from '../controllers/CartManager.js';
 
-//Creating an instance of router
+//Creando una instancia de Router y CartManager
 const router = Router();
-
-//Creating an instance of ProductManager
 const cartManager = new CartManager();
 
-//Using the routes
+//Configurando las rutas
 router.get('/:cid', async (req, res) => {
     let cid = parseInt(req.params.cid);
     res.send(await cartManager.getCartById(cid));
@@ -26,5 +22,4 @@ router.post('/:cid/product/:pid', async (req, res) => {
     res.send(await cartManager.addProductInCart(cid, pid));
 });
 
-//Exporting the router
 export default router;

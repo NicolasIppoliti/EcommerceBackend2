@@ -1,10 +1,29 @@
-<h1>Lista de productos</h1>
-{{#each products}}
-<h2>{{this.title}}</h2>
-<p>{{this.description}}</p>
-<p>{{this.price}}</p>
-{{#if this.thumbnail}}
-<img src="{{this.thumbnail}}" alt="{{this.title}}">
-{{/if}}
-<p>{{this.stock}}</p>
-{{/each}}
+<h1>Listado de Productos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Código</th>
+                <th>Precio</th>
+                <th>Estado</th>
+                <th>Stock</th>
+                <th>Categoría</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each products}}
+                <tr>
+                    <td>{{title}}</td>
+                    <td>{{description}}</td>
+                    <td>{{code}}</td>
+                    <td>{{price}}</td>
+                    <td>{{status}}</td>
+                    <td>{{stock}}</td>
+                    <td>{{category}}</td>
+                    <td><img src="{{thumbnail}}" alt="{{title}}" width="100"></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>

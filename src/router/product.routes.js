@@ -1,20 +1,18 @@
-//Import router from express
+//Importando router de express
 import { Router } from "express";
 
-//Importing the ProductManager class
+//Importando el controlador
 import ProductManager from '../controllers/ProductManager.js';
 
-//Importing the nanoid module
+//Importando nanoid para generar id
 import { customAlphabet } from 'nanoid';
 const nanoid = customAlphabet('1234567890', 5);
 
-//Creating an instance of router
+//Creando una instancia de Router y ProductManager
 const router = Router();
-
-//Creating an instance of ProductManager
 const productManager = new ProductManager();
 
-//Using the routes
+//Configurando las rutas
 router.get('/', async (req, res) => {
     res.send(await productManager.getProducts());
 });
@@ -45,5 +43,4 @@ router.delete('/:id', async (req, res) => {
     res.send(await productManager.deleteProduct(id));
 });
 
-//Exporting the router
 export default router;

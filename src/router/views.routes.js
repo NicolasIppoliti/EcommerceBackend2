@@ -1,25 +1,19 @@
 import express from 'express';
 
-//Importing the products
+//Importando el controlador
 import productManager from '../controllers/ProductManager.js';
 const product = new productManager();
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    let allProducts = await product.getProducts();
-    res.render('index', {
-        title: 'Desafio Handlebars',
-        products: allProducts
-    })
+    const products = await product.getProducts();
+    res.render('index', { products });
 });
 
 router.get('/realtimeproducts', async (req, res) => {
-    let allProducts = await product.getProducts();
-    res.render('realtimeproducts', {
-        title: 'Desafio Handlebars',
-        products: allProducts
-    })
+    const products = await product.getProducts();
+    res.render('realTimeProducts', { products });
 });
 
 export default router;

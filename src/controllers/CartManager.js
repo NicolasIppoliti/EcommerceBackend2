@@ -1,14 +1,8 @@
-//Importing the fs module
 import {promises as fs} from 'fs';
-
-//Importing the nanoid module
-import { customAlphabet } from 'nanoid';
-const nanoid = customAlphabet('1234567890', 5);
-
-//Importing the ProductManager class
 import ProductManager from './ProductManager.js';
+import { customAlphabet } from 'nanoid';
 
-//Creating an instance of ProductManager
+const nanoid = customAlphabet('1234567890', 5);
 const productManager = new ProductManager();
 
 class CartManager {
@@ -39,7 +33,7 @@ class CartManager {
     }
 
     getCartById = async (id) => {
-        //Checking if the cart exists
+        //Chequeando si el carrito existe
         let cartById = await this.existCart(id);
         if (!cartById) {
             return 'Cart not found';
@@ -48,19 +42,18 @@ class CartManager {
     }
 
     addProductInCart = async (cartId, productId) => {
-        //Checking if the cart exists
+        //Chequeando si el carrito existe
         let cartById = await this.existCart(cartId);
         if (!cartById) return 'Cart not found';
 
-        //Checking if the product exists
+        //Chequeando si el producto existe
         let productById = await productManager.existProduct(productId);
         if (!productById) return 'Product not found';
 
-        //Getting all the carts except the one we want to modify
         let allCarts = await this.readCarts();
         let cartFilter = allCarts.filter((cart) => cart.id != cartId);
 
-        //Checking if the product is already in the cart
+        //Chequeando si el producto ya está en el carrito
         if (cartById.products.some((prod) => prod.id === productId)) {
             let moreProductsInCart = cartById.products.find((prod) => prod.id === productId);
             moreProductsInCart.quantity ++;
