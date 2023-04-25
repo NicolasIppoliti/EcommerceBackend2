@@ -1,0 +1,48 @@
+<h1>Listado de Productos</h1>
+{{#if products}}
+<div>
+    <div>
+        <form action="/products" method="GET">
+            <input type="text" name="search" placeholder="Buscar productos" value="{{search}}">
+            <input type="hidden" name="sortBy" value="{{sortBy}}">
+            <input type="hidden" name="sortOrder" value="{{sortOrder}}">
+            <input type="submit" value="Buscar">
+        </form>
+    </div>
+    <div>
+        <h2>Ordenar por:</h2>
+        <a href="/products?sortBy=price&sortOrder=asc">Menor precio</a>
+        <a href="/products?sortBy=price&sortOrder=desc">Mayor precio</a>
+        <a href="/products?sortBy=title&sortOrder=asc">Nombre: A - Z</a>
+        <a href="/products?sortBy=title&sortOrder=desc">Nombre: Z - A</a>
+    </div>
+    {{#each products}}
+    <div class="product">
+        <img src="{{thumbnail}}" alt="{{title}}" height="300px">
+        <p>Categoria: {{category}}</p>
+        <h2>{{title}}</h2>
+        <h3>{{description}}</h3>
+        <p>Precio: {{price}}</p>
+        <p>Stock: {{stock}}</p>
+        <form action="/api/carts/64432bc3b55559ea0dfc9365/products/{{_id}}" method="POST">
+            <button type="submit">Agregar al carrito</button>
+        </form>
+    </div>
+    {{/each}}
+</div>
+<br />
+<div>
+    {{#if hasPrevPage}}
+    <a href={{this.prevLink}}>
+        << Anterior</a>
+            {{/if}}
+            &nbsp;
+            {{this.page}}
+            &nbsp;
+            {{#if hasNextPage}}
+            <a href={{this.nextLink}}>Siguiente >></a>
+            {{/if}}
+</div>
+{{else}}
+<h1>No hay productos para mostrar</h1>
+{{/if}}
