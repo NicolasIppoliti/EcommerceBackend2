@@ -1,10 +1,12 @@
 import { Router } from "express";
 import cartsController from "../controllers/carts.controller.js";
+import helpers from "../helpers/auth.js";
 
 const router = Router();
 const CartsController = new cartsController();
+const { isAuthenticated } = helpers;
 
-router.get('/', CartsController.getCarts);
+router.get('/', isAuthenticated, CartsController.getCarts);
 router.get('/:cid', CartsController.getCartById);
 router.post('/', CartsController.addCart);
 router.post('/:cid/products/:pid', CartsController.addProductToCart);

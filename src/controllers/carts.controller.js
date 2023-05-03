@@ -31,10 +31,12 @@ class CartsController {
             const newCart = new this.cartsModel({
                 _id: req.body._id,
                 products: req.body.products,
-                total: req.body.total
+                total: req.body.total,
             });
+            newCart.user = req.user.id;
             await newCart.save();
-            res.json({ message: 'Cart saved' });
+            res.json({ message: 'Carrito agregado correctamente' });
+            req.flash('success_msg', 'Carrito agregado correctamente');
         } catch (error) {
             res.status(500).json({ message: 'Error saving cart' });
         }
@@ -47,7 +49,8 @@ class CartsController {
             const product = await this.productsModel.findById(pid);
             cart.products.push({ product });
             await cart.save();
-            res.json({ message: 'Product added to cart' });
+            res.json({ message: 'Producto agregado correctamente al carrito' });
+            req.flash('success_msg', 'Producto agregado correctamente al carrito');
         } catch (error) {
             res.status(500).json({ message: 'Error adding product to cart' });
         }
@@ -61,7 +64,8 @@ class CartsController {
                 total: req.body.total
             };
             await this.cartsModel.findByIdAndUpdate(cid, { $set: cart }, { new: true });
-            res.json({ message: 'Cart updated' });
+            res.json({ message: 'Carrito actualizado correctamente' });
+            req.flash('success_msg', 'Carrito actualizado correctamente');
         } catch (error) {
             res.status(500).json({ message: 'Error updating cart' });
         }
@@ -78,7 +82,8 @@ class CartsController {
                 }
             });
             await cart.save();
-            res.json({ message: 'Product updated from cart' });
+            res.json({ message: 'Producto actualizado correctamente en el carrito' });
+            req.flash('success_msg', 'Producto actualizado correctamente en el carrito');
         } catch (error) {
             res.status(500).json({ message: 'Error updating product from cart' });
         }
@@ -87,7 +92,8 @@ class CartsController {
     deleteCart = async (req, res) => {
         try {
             await this.cartsModel.findByIdAndRemove(req.params.cid);
-            res.json({ message: 'Cart deleted' });
+            res.json({ message: 'Carrito eliminado correctamente' });
+            req.flash('success_msg', 'Carrito eliminado correctamente');
         } catch (error) {
             res.status(500).json({ message: 'Error deleting cart' });
         }
@@ -103,7 +109,8 @@ class CartsController {
                 }
             });
             await cart.save();
-            res.json({ message: 'Product deleted from cart' });
+            res.json({ message: 'Producto eliminado correctamente del carrito' });
+            req.flash('success_msg', 'Producto eliminado correctamente del carrito');
         } catch (error) {
             res.status(500).json({ message: 'Error deleting product from cart' });
         }
@@ -111,7 +118,7 @@ class CartsController {
 
     renderCart = async (req, res) => {
         try {
-            const cart = await this.cartsModel.findById(req.params.cid).populate("products.product");
+            const cart = await this.cartsModel.findOne({user: req.user.id}).populate("products.product").sort({ date: 'desc' });
             const products = cart.products.map(product => ({
                 _id: product.product._id,
                 title: product.product.title,
@@ -123,7 +130,7 @@ class CartsController {
         } catch (error) {
             res.status(500).json({ message: 'Error getting cart by ID' });
         }
-    };      
+    };
 }
 
 export default CartsController;

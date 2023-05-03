@@ -37,7 +37,9 @@ class ProductsController {
                 thumbnail: req.body.thumbnail
             });
             await newProduct.save();
-            res.json({ message: 'Product saved' });
+            res.json({ message: 'Producto agregado correctamente' });
+            req.flash('success_msg', 'Producto agregado correctamente');
+            res.redirect('/products');
         } catch (error) {
             res.status(500).json({ message: 'Error adding product' });
         }
@@ -57,7 +59,9 @@ class ProductsController {
                 thumbnail: req.body.thumbnail
             };
             await this.productsModel.findByIdAndUpdate(id, { $set: product }, { new: true });
-            res.json({ message: 'Product updated' });
+            res.json({ message: 'Producto actualizado correctamente' });
+            req.flash('success_msg', 'Producto actualizado correctamente');
+            res.redirect('/products');
         } catch (error) {
             res.status(500).json({ message: 'Error updating product' });
         }
@@ -66,7 +70,9 @@ class ProductsController {
     deleteProduct = async (req, res) => {
         try {
             await this.productsModel.findByIdAndRemove(req.params.id);
-            res.json({ message: 'Product deleted' });
+            res.json({ message: 'Producto eliminado correctamente' });
+            req.flash('success_msg', 'Producto eliminado correctamente');
+            res.redirect('/products');
         } catch (error) {
             res.status(500).json({ message: 'Error deleting product' });
         }

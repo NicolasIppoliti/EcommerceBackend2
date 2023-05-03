@@ -1,12 +1,17 @@
 //Imports
 import express from 'express';
-import path, {dirname} from 'path';
-import {fileURLToPath} from 'url';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import exphbs from 'express-handlebars';
 import productRoutes from './routes/product.routes.js';
 import cartRoutes from './routes/cart.routes.js';
 import viewRoutes from './routes/views.routes.js';
+import usersRoutes from './routes/users.routes.js';
 import morgan from 'morgan';
+import flash from 'connect-flash';
+import session from 'express-session';
+import passport from 'passport';
+import './config/passport.js';
 
 //Initializations
 const app = express();
@@ -28,12 +33,28 @@ app.set('view engine', '.hbs');
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 //Global Variables
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    res.locals.user =  req.user || null;
+    next();
+});
 
 //Routes
 app.use('/api/products', productRoutes);
 app.use('/api/carts', cartRoutes);
+app.use('/api/users', usersRoutes);
 app.use('/', viewRoutes);
 
 //Static Files

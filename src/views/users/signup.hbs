@@ -1,0 +1,23 @@
+<div>
+    <h1>Sign Up</h1>
+    <form action="/api/users/signup" method="POST">
+        <div>
+            <label for="name">Usuario</label>
+            <input type="text" name="name" id="name" placeholder="Ingresa tu usuario" value="{{name}}">
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="Ingresa tu email" value="{{email}}">
+        <div>
+            <label for="password">Contraseña</label>
+            <input type="password" name="password" id="password" placeholder="Ingresa tu contraseña">
+        </div>
+        <div>
+            <label for="confirm_password">Confirmar Contraseña</label>
+            <input type="password" name="confirm_password" id="confirm_password" placeholder="Repite tu contraseña">
+        </div>
+        <div>
+            <button type="submit">Registrarse</button>
+        </div>
+    </form>
+</div>
