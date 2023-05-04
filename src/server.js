@@ -36,7 +36,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(session({
     secret: 'secret',
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: { maxAge: null }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -53,7 +54,7 @@ app.use((req, res, next) => {
 
 //Routes
 app.use('/api/products', productRoutes);
-app.use('/api/carts', cartRoutes);
+app.use('/api/cart', cartRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/', viewRoutes);
 

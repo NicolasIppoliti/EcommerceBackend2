@@ -9,7 +9,7 @@ const { isAuthenticated } = helpers;
 router.get('/', isAuthenticated, CartsController.getCarts);
 router.get('/:cid', CartsController.getCartById);
 router.post('/', CartsController.addCart);
-router.post('/:cid/products/:pid', CartsController.addProductToCart);
+router.post('/products/:pid', isAuthenticated, CartsController.addProductToCart);
 router.delete('/:cid/products/:pid', CartsController.deleteProductFromCart);
 router.delete('/:cid', CartsController.deleteCart);
 router.put('/:cid', CartsController.updateCart);

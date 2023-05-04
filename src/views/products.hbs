@@ -24,7 +24,7 @@
         <h3>{{description}}</h3>
         <p>Precio: {{price}}</p>
         <p>Stock: {{stock}}</p>
-        <form action="/api/carts/644958aea880c8bb31780c20/products/{{_id}}" method="POST">
+            <form action="/api/cart/products/{{this._id}}" method="post">            
             <button type="submit">Agregar al carrito</button>
         </form>
     </div>

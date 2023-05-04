@@ -44,17 +44,17 @@ class CartsController {
 
     addProductToCart = async (req, res) => {
         try {
-            const { cid, pid } = req.params;
-            const cart = await this.cartsModel.findById(cid);
+            const { pid } = req.params;
+            const cart = await this.cartsModel.findOne({ user: req.user.id });
             const product = await this.productsModel.findById(pid);
             cart.products.push({ product });
             await cart.save();
-            res.json({ message: 'Producto agregado correctamente al carrito' });
             req.flash('success_msg', 'Producto agregado correctamente al carrito');
+            res.redirect('/cart');
         } catch (error) {
             res.status(500).json({ message: 'Error adding product to cart' });
         }
-    };    
+    };      
 
     updateCart = async (req, res) => {
         try {

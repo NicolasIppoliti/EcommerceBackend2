@@ -9,8 +9,9 @@ const CartsController = new cartsController();
 const UsersController = new usersController();
 
 router.get('/products', ProductsController.renderProducts);
-router.get('/cart/:cid', CartsController.renderCart);
+router.get('/cart', CartsController.renderCart);
 router.get('/users/signup', UsersController.renderSignUpForm);
 router.get('/users/login', UsersController.renderLogInForm);
+router.get('/users/logout', UsersController.logout);
 
 export default router;

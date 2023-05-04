@@ -1,10 +1,24 @@
 import usersModel from '../models/usersModel.js';
 import passport from 'passport';
+import cartsModel from '../models/cartsModel.js';
 
 class UsersController {
     constructor() {
         this.usersModel = usersModel;
     }
+
+    createCartForUser = async (userId) => {
+        try {
+            const newCart = new cartsModel({
+                products: [],
+                total: 0,
+                user: userId,
+            });
+            await newCart.save();
+        } catch (error) {
+            console.error('Error creating cart for user:', error);
+        }
+    };
 
     renderSignUpForm = (req, res) => {
         res.render('users/signup');
@@ -36,6 +50,7 @@ class UsersController {
                 const newUser = new this.usersModel({name, email, password});
                 newUser.password = await newUser.encryptPassword(password);
                 await newUser.save();
+                await this.createCartForUser(newUser._id);
                 req.flash('success_msg', 'Usuario registrado');
                 res.redirect('/users/login');
             }
