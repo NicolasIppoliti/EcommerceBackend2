@@ -12,6 +12,9 @@ import flash from 'connect-flash';
 import session from 'express-session';
 import passport from 'passport';
 import './config/passport.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 //Initializations
 const app = express();
@@ -35,8 +38,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(session({
     secret: 'secret',
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     cookie: { maxAge: null }
 }));
 app.use(passport.initialize());
