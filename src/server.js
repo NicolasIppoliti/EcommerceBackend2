@@ -12,9 +12,7 @@ import flash from 'connect-flash';
 import session from 'express-session';
 import passport from 'passport';
 import './config/passport.js';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import config from './config/config.js';
 
 //Initializations
 const app = express();
@@ -22,7 +20,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 //Settings
-app.set('port', process.env.PORT || 4000);
+app.set('port', config.PORT || 4000);
 app.set('views', path.join(__dirname + '/views'));
 app.engine('.hbs', exphbs.engine({
     defaultLayout: 'main',

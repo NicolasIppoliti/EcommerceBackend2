@@ -113,21 +113,6 @@ class ProductsController {
                 prevLink: products.prevLink,
                 nextLink: products.nextLink,
             });
-            // Al usar el render, no es necesario enviar el status, ya que el render lo hace por defecto
-            // res.json({
-            //     status: 'success',
-            //     payload: {
-            //         products: productList,
-            //         totalPages: products.totalPages,
-            //         prevPage: products.prevPage,
-            //         nextPage: products.nextPage,
-            //         page: page,
-            //         hasPrevPage: products.hasPrevPage,
-            //         hasNextPage: products.hasNextPage,
-            //         prevLink: products.prevLink,
-            //         nextLink: products.nextLink,
-            //     },
-            // });
         } catch (error) {
             res.status(500).json({ message: 'Error getting products' });
         }

@@ -2,9 +2,7 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import GoogleStrategy from 'passport-google-oauth20';
 import usersModel from '../models/usersModel.js';
-import dotenv from 'dotenv';
-
-dotenv.config();
+import config from './config.js';
 
 passport.use(new LocalStrategy({
     usernameField: 'email',
@@ -26,9 +24,9 @@ passport.use(new LocalStrategy({
 }));
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:4000/api/users/googleCallback"
+    clientID: config.GOOGLE_CLIENT_ID,
+    clientSecret: config.GOOGLE_CLIENT_SECRET,
+    callbackURL: config.GOOGLE_CALLBACK_URL
 },
     async (accessToken, refreshToken, profile, done) => {
         const newUser = {

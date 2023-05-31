@@ -1,9 +1,8 @@
 // Configuracion de la conexion a Mongo
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-dotenv.config();
+import config from './config/config.js';
 
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect(config.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
